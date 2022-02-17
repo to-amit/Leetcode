@@ -12,10 +12,7 @@ public:
     }
     string ans = "";
     while(!st.empty()){
-        if(st.top().second == k){
-            st.pop();
-            continue;
-        }
+       
         while(st.top().second--)ans += st.top().first;
         st.pop();
     }
