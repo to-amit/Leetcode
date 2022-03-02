@@ -65,27 +65,19 @@ public:
             fast=fast->next->next;
             
         }
-        prev->next=NULL;
-        return slow;
+        prev=slow->next;
+         slow->next=NULL;
+        return prev;
         
     }
     void reorderList(ListNode* head) {
-          if(head==NULL||head->next==NULL||head->next->next==NULL)
+         if(head==NULL||head->next==NULL||head->next->next==NULL)
             return ;
-        //find the middle of list
-        ListNode* slow=head,*fast=head->next;
-        while(fast && fast->next){
-            slow=slow->next;
-            fast=fast->next->next;
-        }
-        ListNode* secondHead=slow->next;
-        slow->next=NULL;
-        //reverse the second list
-        secondHead=reverse(secondHead);
-        ListNode* curr1=head,*curr2=secondHead;
+        ListNode* head2=findMid(head);
+        head2=reverse(head2);
         
-        //linking list
-        while(curr1 && curr2){
+        ListNode* curr1=head,*curr2=head2;
+         while(curr1 && curr2){
             ListNode* temp1=curr1->next;
             ListNode* temp2=curr2->next;
             curr1->next=curr2;
