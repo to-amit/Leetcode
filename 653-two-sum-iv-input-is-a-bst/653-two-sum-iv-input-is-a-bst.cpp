@@ -11,23 +11,20 @@
  */
 class Solution {
 public:
+    bool serch(TreeNode* root,int k,unordered_set<int>&st){
+        if(root==NULL) return false;
+        if(st.find(k-root->val)!=st.end()) return true;
+        else st.insert(root->val);
+        bool a =serch(root->left,k,st);
+        bool b =serch(root->right,k,st);
+        if(a || b) return true;
+        return false;
+    }
     bool findTarget(TreeNode* root, int k) {
         if(!root)
             return false;
         unordered_set<int> seen;
-        queue<TreeNode*> nodes;
-        nodes.push(root);
-        while(!nodes.empty()){
-            root = nodes.front();
-            nodes.pop();
-            if(!root)
-                continue;
-            if(seen.find(k-root->val) != seen.end())
-                return true;
-            seen.insert(root->val);
-            nodes.push(root->left);
-            nodes.push(root->right);
-        }
-        return false;
+       if(serch(root,k,seen)) return true;
+       return false; 
     }
 };
