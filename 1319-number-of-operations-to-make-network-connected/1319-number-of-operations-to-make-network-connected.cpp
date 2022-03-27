@@ -20,7 +20,7 @@ public:
             edges += 1;
         }
         
-        //STEP-2: Find No of components
+      
         int components = 0;
         for(int i=0;i<n;++i)
             if(visited[i]==false)
@@ -29,7 +29,7 @@ public:
                 DFS(adj,i,visited);
             }
         
-        //STEP-3: Count no of edges
+      
         if(edges < n-1) //If no of edges are less than that in MST
             return -1;
         int redundant = edges-((n-1)-(components-1));   //Count redundant edges
