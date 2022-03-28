@@ -20,7 +20,7 @@ public:
             else if(nums[l] <= nums[mid])
             {
 				// target is in first  half
-                if((nums[l] <= target) && (nums[mid] > target))
+                if((nums[l] <= target) && (nums[mid] >= target))
                     r = mid - 1;
                 else
                     l = mid + 1;
@@ -30,7 +30,7 @@ public:
 			// target is in second half
             else
             {
-                if((nums[mid] < target) && (nums[r]>= target))
+                if((nums[mid] <= target) && (nums[r]>= target))
                     l = mid + 1;
                 else
                     r = mid - 1;
