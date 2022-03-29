@@ -6,45 +6,29 @@ using namespace std;
 class Solution
 {
     public:
-   static bool comparator(pair<int,int> p1,pair<int,int> p2)
-   {
-       
-       return p1.second<p2.second;
-       
-   }
-   
-   
-   
-   int maxMeetings(int start[], int end[], int n)
-   {
-       vector<pair<int,int>> sorted;
-       
-       
-       for(int i=0;i<n;i++)
-       {
-           sorted.push_back({start[i],end[i]});
-           
-       }
-           
-       
-       
-       sort(sorted.begin(),sorted.end(),comparator);
-       int count=1;
-       int j=0;
-       for(int i=1;i<n;i++)
-       {
-           
-           if(sorted[i].first>sorted[j].second)
-           {
-               count++;
+      public:
+     static bool comp(pair<int, int> a, pair<int, int> b)
+        {
+      
+        return a.second < b.second;
+        }
+    int maxMeetings(int start[], int end[], int n)
+    {
+        vector<pair<int, int> > v(n);
+        for(int i = 0; i < n; i++)
+        v[i] = { start[i], end[i] };
+        sort(v.begin(), v.end(), comp);
+        
+      int j=0;
+      int c=1;
+       for(int i=1;i<n;i++){
+           if(v[i].first>v[j].second){
+               c++;
                j=i;
            }
-           
        }
-       
-       return count;
-       
-   }
+        return c;
+    }
 };
 
 // { Driver Code Starts.
