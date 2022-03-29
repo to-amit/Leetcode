@@ -22,7 +22,6 @@ class Solution
        
        for(int i=0;i<n;i++)
        {
-         
            sorted.push_back({start[i],end[i]});
            
        }
