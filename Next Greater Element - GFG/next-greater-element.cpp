@@ -9,13 +9,15 @@ class Solution
     public:
     //Function to find the next greater element for each element of the array.
     vector<long long> nextLargerElement(vector<long long> arr, int n){
-        vector<long long>res(n,-1);
+        vector<long long>res(n);
         stack<long long>st;
         for(int i=n-1;i>=0;i--){
             while(!st.empty() && arr[st.top()]<=arr[i])
             st.pop();
             if(!st.empty()){
                 res[i]=arr[st.top()];
+            }else{
+                res[i]=-1;
             }
             st.push(i);
         }
