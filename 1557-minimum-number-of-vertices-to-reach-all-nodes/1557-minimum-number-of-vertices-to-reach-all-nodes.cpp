@@ -1,23 +1,45 @@
 class Solution {
 public:
-   vector<int> findSmallestSetOfVertices(int n, vector<vector<int>>& edges) {
-
-     vector<int>adj[n]; //adjajecy list
-    vector<int>inorder(n,0); //inorder
-    for(int i=0;i<edges.size();++i)
+   void dfs(vector<int>adj[],vector<bool>&vist,int start)
     {
-        adj[edges[i][0]].push_back(edges[i][1]);
-        inorder[edges[i][1]]++;
+        
+        for(auto i:adj[start])
+        { 
+            if(!vist[i])
+            {
+                vist[i]=true;
+                dfs(adj,vist,i);
+            }
+        }
+        
     }
-   
-    vector<int>q;
-   for(int i=0;i<n;++i)
-   {
-       if(inorder[i]==0)
-       {
-           q.push_back(i);
-       }
-   }
-    return q;
-}
+    vector<int> findSmallestSetOfVertices(int n, vector<vector<int>>& edges)
+    {
+        //adj=[[1,2],[],[5],[4],[2]]
+        
+        vector<int>adj[n];
+        vector<bool>vist(n,false);
+        vector<int>ans;
+        
+        for(auto i:edges)
+        {
+            adj[i[0]].push_back(i[1]);
+        }
+        
+        
+        for(int i=0;i<n;i++)
+        {
+            if(!vist[i])
+            {
+                dfs(adj,vist,i);
+            }
+        }
+        for(int i=0;i<n;i++)
+        {
+            if(vist[i]==false)
+            ans.push_back(i);
+        }
+
+    return ans;
+    }
 };
