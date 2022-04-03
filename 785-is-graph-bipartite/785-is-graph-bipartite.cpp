@@ -1,28 +1,33 @@
 class Solution {
 public:
-    
-    bool isBipartite(vector<vector<int>>& graph) {
-        int n =graph.size();
-        vector<int>visited(n,-1);
-        queue<int>q;
-        for(int i=0;i<n;i++){
-            if(visited[i]!=-1)
-                continue;
-            q.push(i);
-            visited[i]=0;
-            while(!q.empty()){
-                int tmp =q.front();
-                q.pop();
-                for(int j=0;j<graph[tmp].size();j++){
-                    if(visited[graph[tmp][j]] == -1){
-                        visited[graph[tmp][j]] = !visited[tmp];
-                        q.push(graph[tmp][j]);
-                        
-                    }else if(visited[tmp] == visited[graph[tmp][j]])
-                        return false;
-                }
-            }
+// we can also do the same using dfs too
+bool dfs(int node, vector<vector<int>> &adj, vector<int> &col)
+{
+    if (col[node] == -1)
+        col[node] = 1;
+    for (auto it : adj[node])
+    {
+        if (col[it] == -1)
+        {
+            col[it] = 1 - col[node];
+            if (dfs(it, adj, col))
+                return true;
         }
-        return true;
+        else if (col[node] == col[it])
+            return true;
     }
+    return false;
+}
+   bool isBipartite(vector<vector<int>> &adj)
+{
+    int n = adj.size();
+    vector<int> col(n + 1, -1);
+    for (int i = 0; i < n; i++)
+    {
+        if (col[i] == -1)
+            if (dfs(i, adj, col))
+                return false;
+    }
+    return true;
+}
 };
