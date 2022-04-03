@@ -1,33 +1,27 @@
 class Solution {
 public:
-// we can also do the same using dfs too
-bool dfs(int node, vector<vector<int>> &adj, vector<int> &col)
-{
-    if (col[node] == -1)
-        col[node] = 1;
-    for (auto it : adj[node])
-    {
-        if (col[it] == -1)
-        {
-            col[it] = 1 - col[node];
-            if (dfs(it, adj, col))
+    bool isCycle(int i,vector<vector<int>>& graph,vector<int>&vis){
+        if(vis[i]==-1)
+        vis[i]=1;
+        for(auto it :graph[i]){
+            if(vis[it]==-1){
+                vis[it]=1-vis[i];
+               if(isCycle(it,graph,vis))
+                   return true;
+            }else if(vis[i]==vis[it])
                 return true;
+                
         }
-        else if (col[node] == col[it])
-            return true;
+        return false;
     }
-    return false;
-}
-   bool isBipartite(vector<vector<int>> &adj)
-{
-    int n = adj.size();
-    vector<int> col(n + 1, -1);
-    for (int i = 0; i < n; i++)
-    {
-        if (col[i] == -1)
-            if (dfs(i, adj, col))
+    bool isBipartite(vector<vector<int>>& graph) {
+        int n =graph.size();
+        vector<int>visited(n+1,-1);
+        for(int i=0;i<n;i++){
+            if(visited[i]==-1)
+            if(isCycle(i,graph,visited))
                 return false;
+        }
+       return true;
     }
-    return true;
-}
 };
