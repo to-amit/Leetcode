@@ -13,13 +13,28 @@ class Solution {
 public:
     int sum=0;
     //aproach reeverse inorder traversal
-    
+    // TreeNode* convertBST(TreeNode* root) {
+    //     if(root==NULL) return NULL;
+    //     convertBST(root->right);
+    //     sum+=root->val;
+    //     root->val=sum;
+    //     convertBST(root->left);
+    //     return root;
+    // }
     TreeNode* convertBST(TreeNode* root) {
         if(root==NULL) return NULL;
-        convertBST(root->right);
-        sum+=root->val;
-        root->val=sum;
-        convertBST(root->left);
+         stack<TreeNode*>st;
+        TreeNode* node=root;
+        while(!st.empty() || node!=NULL){
+            while(node){
+                st.push(node);
+                node=node->right;
+            }
+            node=st.top();st.pop();
+            sum+=node->val;
+            node->val=sum;
+            node=node->left;
+        }
         return root;
     }
 };
